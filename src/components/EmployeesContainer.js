@@ -2,10 +2,14 @@ import React, { Component } from "react";
 import SearchForm from "./SearchForm";
 import EmployeeList from "./EmployeeList";
 import API from "../utils/API";
+import ListHeader from "./ListHeader"
 
 class EmployeesContainer extends Component {
   state = {
-    employees: []
+    employees: [],
+    search:"",
+    sortBy: "",
+    sortDirection: ""
   };
 
   componentDidMount() {
@@ -14,7 +18,7 @@ class EmployeesContainer extends Component {
 
   getEmployees = query => {
     API.search(query)
-      .then(res => this.setState({ results: res.results }))
+      .then(res => this.setState({ results: res.data.results }))
       .catch(err => console.log(err));
   };
 
@@ -26,21 +30,25 @@ class EmployeesContainer extends Component {
     });
   };
 
-  // When the form is submitted, search the Giphy API for `this.state.search`
   handleFormSubmit = event => {
     event.preventDefault();
-    
+
   };
+
+  handleSort = event =>{
+
+  }
 
   render() {
     return (
-      <div>
+      <div className="container">
         <SearchForm
           search={this.state.search}
           handleFormSubmit={this.handleFormSubmit}
           handleInputChange={this.handleInputChange}
         />
-        <EmployeeList results={this.state.results} />
+        <ListHeader handleSort={this.handleSort}/>
+        {this.state.employees.map(item => <EmployeeList {...item} key={item.login.uuid}/>)}
       </div>
     );
   }
