@@ -3,6 +3,7 @@ import SearchForm from "./SearchForm";
 import EmployeeList from "./EmployeeList";
 import API from "../utils/API";
 import ListHeader from "./ListHeader"
+import Jumbotron from "./Jumbotron"
 
 class EmployeesContainer extends Component {
   state = {
@@ -80,14 +81,18 @@ class EmployeesContainer extends Component {
 
   render() {
     return (
-      <div className="container">
-        <SearchForm
-          search={this.state.search}
-          handleInputChange={this.handleInputChange}
-        />
-        <ListHeader handleSort={this.handleSort}/>
-        {this.state.employeesShown.map(item => <EmployeeList {...item} key={item.login.uuid}/>)}
+      <div>
+        <Jumbotron />
+        <div className="container">
+          <SearchForm
+            search={this.state.search}
+            handleInputChange={this.handleInputChange}
+          />
+          <ListHeader handleSort={this.handleSort}/>
+          {this.state.employeesShown.map(item => <EmployeeList {...item} key={item.login.uuid}/>)}
+        </div>
       </div>
+      
     );
   }
 }

@@ -3,15 +3,15 @@ import React from "react";
 function SearchForm(props) {
   return (
     <form>
-      <div className="form-group">
-        <label htmlFor="search">Search:</label>
+      <div className="form-group input-group mb-3 mt-3">
+        <span htmlFor="search" class="input-group-text bg-info text-white" id="basic-addon1">Search:</span>
         <input
           onChange={props.handleInputChange}
           value={props.search}
           name="search"
           type="text"
           className="form-control"
-          placeholder=""
+          placeholder="Search by name, phone-number, or email"
           id="search"
         />
       </div>
