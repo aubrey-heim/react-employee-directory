@@ -10,7 +10,7 @@ class EmployeesContainer extends Component {
     employeesShown: [],
     search:"",
     sortBy: "",
-    sortDirection: ""
+    sortDirection: "up"
   };
 
   componentDidMount() {
@@ -46,7 +46,40 @@ class EmployeesContainer extends Component {
   };
 
   handleSort = event =>{
+    let activeBox = event.target
+    if (activeBox.attributes.type.value === "icon") {
+      activeBox = event.target.parentElement
+    }
+    let inactiveBoxes = activeBox.parentElement.childNodes
+    inactiveBoxes.forEach(element => element.classList.add("list-group-item-secondary"))
+    inactiveBoxes.forEach(element => element.classList.remove("list-group-item-primary"))
+    activeBox.classList.add("list-group-item-primary")
+    activeBox.classList.remove("list-group-item-secondary")
+    let sortBy = activeBox.name
+    let sortDirection;
+    if (this.state.sortDirection === "up") {
+      sortDirection = "down"
+    } else {
+      sortDirection = "up"
+    }
+    let sortedEmployees;
+    if (sortBy === "name"){
+      sortedEmployees = this.state.employees.sort((a, b) => (a.name.first < b.name.first) ? 1 : -1)
+    } else if (sortBy === "phone") {
+      sortedEmployees = this.state.employees.sort((a, b) => (a.cell < b.cell) ? 1 : -1)
+    } else if (sortBy === "email") {
+      sortedEmployees = this.state.employees.sort((a, b) => (a.email < b.email) ? 1 : -1)
+    }
 
+    if (sortDirection === "down") {
+      sortedEmployees.reverse()
+    }
+
+    this.setState({
+      employeesShown: sortedEmployees,
+      sortDirection: sortDirection,
+      sortBy: sortBy
+    })
   }
 
   render() {
