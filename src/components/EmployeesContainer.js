@@ -24,23 +24,19 @@ class EmployeesContainer extends Component {
   };
 
   handleInputChange = event => {
-    const search = event.target.value;
-    this.setState({
-      search: search
-    })
-  };
-
-  handleFormSubmit = event => {
-    event.preventDefault();
-    let phoneSearch = this.state.search.replace(/[^0-9]/g, '')
-    let lowerSearch = this.state.search.toLowerCase()
+    console.log(event)
+    let keyDown = event.nativeEvent.data
+    console.log(keyDown)
+    const search = event.target.value
+    let phoneSearch = search.replace(/[^a-zA-Z0-9]/g, '')
+    let lowerSearch = search.toLowerCase()
     let filteredEmployees = this.state.employees.filter(employee => employee.name.first.toLowerCase().includes(lowerSearch) 
     || employee.name.last.toLowerCase().includes(lowerSearch)
     || employee.email.includes(lowerSearch)
-    || employee.cell.replace(/[^0-9]/g, '').includes(phoneSearch)
+    || employee.cell.replace(/[^a-zA-Z0-9]/g, '').includes(phoneSearch)
     )
-    console.log(filteredEmployees)
     this.setState({
+      search: search,
       employeesShown: filteredEmployees
     })
   };
@@ -87,7 +83,6 @@ class EmployeesContainer extends Component {
       <div className="container">
         <SearchForm
           search={this.state.search}
-          handleFormSubmit={this.handleFormSubmit}
           handleInputChange={this.handleInputChange}
         />
         <ListHeader handleSort={this.handleSort}/>
