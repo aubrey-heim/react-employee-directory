@@ -16,9 +16,9 @@ function ResultList(props) {
     <div>
       <ul className="list-group list-group-horizontal row text-center">
         <li className="list-group-item col-2"><img alt={`${props.name.first} ${props.name.last}`}style={{width: "100%"}}src={props.picture.large}/></li>
-        <li className="list-group-item col-3" style={styles.span}>{props.name.first} {props.name.last}</li>
-        <li className="list-group-item col-3">{props.cell}</li>
-        <li className="list-group-item col-4" style={styles.email}><a href={`mailto:${props.email}`}>{props.email}</a></li>
+        <li className="employeeList list-group-item col-3" style={styles.span}>{props.name.first} {props.name.last}</li>
+        <li className="employeeList list-group-item col-3">{props.cell}</li>
+        <li className="employeeList list-group-item col-4" style={styles.email}><a href={`mailto:${props.email}`}>{props.email}</a></li>
       </ul>
     </div>
   );
